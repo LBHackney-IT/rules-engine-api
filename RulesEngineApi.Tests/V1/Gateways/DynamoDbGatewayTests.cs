@@ -50,7 +50,7 @@ namespace RulesEngineApi.Tests.V1.Gateways
         [Ignore("Enable if using DynamoDb")]
         public async Task VerifiesGatewayMethodsAddtoDB()
         {
-            var entity = _fixture.Build<DatabaseEntity>()
+            var entity = _fixture.Build<RulesEngineDbEntity>()
                                    .With(x => x.CreatedAt, DateTime.UtcNow).Create();
             InsertDatatoDynamoDB(entity);
 
@@ -59,9 +59,9 @@ namespace RulesEngineApi.Tests.V1.Gateways
             _logger.VerifyExact(LogLevel.Debug, $"Calling IDynamoDBContext.LoadAsync for id parameter {entity.Id}", Times.Once());
         }
 
-        private void InsertDatatoDynamoDB(DatabaseEntity entity)
+        private void InsertDatatoDynamoDB(RulesEngineDbEntity entity)
         {
-            DynamoDbContext.SaveAsync<DatabaseEntity>(entity).GetAwaiter().GetResult();
+            DynamoDbContext.SaveAsync<RulesEngineDbEntity>(entity).GetAwaiter().GetResult();
             CleanupActions.Add(async () => await DynamoDbContext.DeleteAsync(entity).ConfigureAwait(false));
         }
     }

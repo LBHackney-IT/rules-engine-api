@@ -14,15 +14,15 @@ namespace RulesEngineApi.Tests.V1.UseCase
 {
     public class GetAllUseCaseTests : LogCallAspectFixture
     {
-        private Mock<IExampleGateway> _mockGateway;
-        private GetAllUseCase _classUnderTest;
+        private Mock<IRulesEngineApiGateway> _mockGateway;
+        private CreateWorkflowUseCase _classUnderTest;
         private Fixture _fixture;
 
         [SetUp]
         public void SetUp()
         {
-            _mockGateway = new Mock<IExampleGateway>();
-            _classUnderTest = new GetAllUseCase(_mockGateway.Object);
+            _mockGateway = new Mock<IRulesEngineApiGateway>();
+            _classUnderTest = new CreateWorkflowUseCase(_mockGateway.Object);
             _fixture = new Fixture();
         }
 

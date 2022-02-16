@@ -23,6 +23,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Diagnostics.CodeAnalysis;
+using AccountsApi.V1.Infrastructure;
 //using Hackney.Core.Logging;
 //using Hackney.Core.Middleware.Logging;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -127,36 +128,21 @@ namespace RulesEngineApi
 
             //services.AddLogCallAspect();
 
-            ConfigureDbContext(services);
-            //TODO: For DynamoDb, remove the line above and uncomment the line below.
-            //services.ConfigureDynamoDB();
+            services.ConfigureAws();
+            services.ConfigureDynamoDB();
 
             RegisterGateways(services);
             RegisterUseCases(services);
         }
 
-        private static void ConfigureDbContext(IServiceCollection services)
-        {
-            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
-
-            services.AddDbContext<DatabaseContext>(
-                opt => opt.UseNpgsql(connectionString).AddXRayInterceptor(true));
-        }
-
-
-
         private static void RegisterGateways(IServiceCollection services)
         {
-            services.AddScoped<IExampleGateway, ExampleGateway>();
-
-            //TODO: For DynamoDb, remove the line above and uncomment the line below.
-            //services.AddScoped<IExampleDynamoGateway, DynamoDbGateway>();
+            services.AddScoped<IRulesEngineApiGateway, DynamoDbGateway>();
         }
 
         private static void RegisterUseCases(IServiceCollection services)
         {
-            services.AddScoped<IGetAllUseCase, GetAllUseCase>();
-            services.AddScoped<IGetByIdUseCase, GetByIdUseCase>();
+            services.AddScoped<ICreateWorkflowUseCase, CreateWorkflowUseCase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

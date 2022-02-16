@@ -14,7 +14,7 @@ namespace RulesEngineApi.Tests.V1.Gateways
     public class ExampleGatewayTests : DatabaseTests
     {
         private readonly Fixture _fixture = new Fixture();
-        private ExampleGateway _classUnderTest;
+        private RulesEngineApiGateway _classUnderTest;
 
         [SetUp]
         public void Setup()

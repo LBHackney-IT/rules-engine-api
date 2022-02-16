@@ -1,3 +1,4 @@
+using System;
 using Amazon.DynamoDBv2.DataModel;
 using RulesEngineApi.V1.Domain;
 using RulesEngineApi.V1.Factories;
@@ -6,33 +7,30 @@ using Hackney.Core.Logging;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Amazon.DynamoDBv2;
+using Microsoft.Extensions.Configuration;
 
 namespace RulesEngineApi.V1.Gateways
 {
-    public class DynamoDbGateway : IExampleDynamoGateway
+    public class DynamoDbGateway : IRulesEngineApiGateway
     {
         private readonly IDynamoDBContext _dynamoDbContext;
-        private readonly ILogger<DynamoDbGateway> _logger;
+        private readonly IAmazonDynamoDB _amazonDynamoDb;
+        private readonly IConfiguration _configuration;
 
-
-        public DynamoDbGateway(IDynamoDBContext dynamoDbContext, ILogger<DynamoDbGateway> logger)
+        public DynamoDbGateway(IDynamoDBContext dynamoDbContext, IAmazonDynamoDB amazonDynamoDb, IConfiguration configuration)
         {
             _dynamoDbContext = dynamoDbContext;
-            _logger = logger;
+            _amazonDynamoDb = amazonDynamoDb;
+            _configuration = configuration;
         }
 
-        public List<Entity> GetAll()
+        public async Task AddAsync(WorkflowData workflow)
         {
-            return new List<Entity>();
-        }
+            if (workflow == null)
+                throw new ArgumentNullException($"{nameof(workflow)} shouldn't be null!");
 
-        [LogCall]
-        public async Task<Entity> GetEntityById(int id)
-        {
-            _logger.LogDebug($"Calling IDynamoDBContext.LoadAsync for id parameter {id}");
-
-            var result = await _dynamoDbContext.LoadAsync<DatabaseEntity>(id).ConfigureAwait(false);
-            return result?.ToDomain();
+            await _dynamoDbContext.SaveAsync(workflow.ToDatabase()).ConfigureAwait(false);
         }
     }
 }

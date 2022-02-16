@@ -6,16 +6,16 @@ namespace RulesEngineApi.Tests.V1.Helper
 {
     public static class DatabaseEntityHelper
     {
-        public static DatabaseEntity CreateDatabaseEntity()
+        public static RulesEngineDbEntity CreateDatabaseEntity()
         {
             var entity = new Fixture().Create<Entity>();
 
             return CreateDatabaseEntityFrom(entity);
         }
 
-        public static DatabaseEntity CreateDatabaseEntityFrom(Entity entity)
+        public static RulesEngineDbEntity CreateDatabaseEntityFrom(Entity entity)
         {
-            return new DatabaseEntity
+            return new RulesEngineDbEntity
             {
                 Id = entity.Id,
                 CreatedAt = entity.CreatedAt,
