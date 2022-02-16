@@ -1,11 +1,11 @@
 version: "3.2"
 
 services:
-  base-api:
-    image: base-api
+  rules-engine-api:
+    image: rules-engine-api
     build:
      context: .
-     dockerfile: BaseApi/Dockerfile
+     dockerfile: RulesEngineApi/Dockerfile
      args:
      - LBHPACKAGESTOKEN=${LBHPACKAGESTOKEN}
     ports:
@@ -27,11 +27,11 @@ services:
     volumes:
       - ./database:/docker-entrypoint-initdb.d
 
-  base-api-test:
-    image: base-api-test
+  rules-engine-api-test:
+    image: rules-engine-api-test
     build:
       context: .
-      dockerfile: BaseApi.Tests/Dockerfile
+      dockerfile: RulesEngineApi.Tests/Dockerfile
       args:
       - LBHPACKAGESTOKEN=${LBHPACKAGESTOKEN}
     environment:
