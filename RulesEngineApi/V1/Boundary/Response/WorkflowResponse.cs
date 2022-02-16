@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using RulesEngine.Models;
 using RulesEngineApi.V1.Domain;
 
-namespace RulesEngineApi.V1.Boundary.Request
+namespace RulesEngineApi.V1.Boundary.Response
 {
     public class WorkflowResponse : Workflow
     {

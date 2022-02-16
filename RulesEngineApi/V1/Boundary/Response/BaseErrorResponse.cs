@@ -1,4 +1,4 @@
-namespace RulesEngineApi.V1.Infrastructure
+namespace RulesEngineApi.V1.Boundary.Response
 {
     public class BaseErrorResponse
     {
@@ -31,7 +31,7 @@ namespace RulesEngineApi.V1.Infrastructure
         /// Stack Trace of Exception
         /// </summary>
         /// <example>
-        /// at AccountsApi.V1.UseCase.AddAccoutUseCase.ExecuteAsync(AddChargeRequest charge)
+        /// at RulesEngineApi.V1.UseCase.CreateWorkflowUseCase.ExecuteAsync(WorkflowRequest request)
         /// </example>
         public string Details { get; set; }
     }

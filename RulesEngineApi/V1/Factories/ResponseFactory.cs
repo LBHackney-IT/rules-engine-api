@@ -7,8 +7,16 @@ namespace RulesEngineApi.V1.Factories
 {
     public static class ResponseFactory
     {
-        //TODO: Map the fields in the domain object(s) to fields in the response object(s).
-        // More information on this can be found here https://github.com/LBHackney-IT/lbh-rules-engine-api/wiki/Factory-object-mappings
-       
+        public static WorkflowResponse ToResponse(this WorkflowData domain)
+        {
+            return new WorkflowResponse
+            {
+                Id = domain.Id,
+                WorkflowName = domain.WorkflowName,
+                Rules = domain.Rules,
+                GlobalParams = domain.GlobalParams,
+                CreatedAt = domain.CreatedAt
+            };
+        }
     }
 }
