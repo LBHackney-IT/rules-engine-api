@@ -20,49 +20,49 @@ namespace RulesEngineApi.Tests.V1.Gateways
     [TestFixture]
     public class DynamoDbGatewayTests : DynamoDbIntegrationTests<Startup>
     {
-        private readonly Fixture _fixture = new Fixture();
-        private DynamoDbGateway _classUnderTest;
+        //private readonly Fixture _fixture = new Fixture();
+        //private DynamoDbGateway _classUnderTest;
 
-        private Mock<ILogger<DynamoDbGateway>> _logger;
-        private LogCallAspectFixture _logCallAspectFixture;
+        //private Mock<ILogger<DynamoDbGateway>> _logger;
+        //private LogCallAspectFixture _logCallAspectFixture;
 
-        [SetUp]
-        public void Setup()
-        {
-            _logCallAspectFixture = new LogCallAspectFixture();
-            _logger = new Mock<ILogger<DynamoDbGateway>>();
-            _classUnderTest = new DynamoDbGateway(DynamoDbContext, _logger.Object);
-        }
+        //[SetUp]
+        //public void Setup()
+        //{
+        //    _logCallAspectFixture = new LogCallAspectFixture();
+        //    _logger = new Mock<ILogger<DynamoDbGateway>>();
+        //    _classUnderTest = new DynamoDbGateway(DynamoDbContext, _logger.Object);
+        //}
 
-        [Test]
-        [Ignore("Enable if using DynamoDb")]
+        //[Test]
+        //[Ignore("Enable if using DynamoDb")]
 
-        public async Task GetEntityByIdReturnsNullIfEntityDoesntExist()
-        {
-            var response = await _classUnderTest.GetEntityById(123).ConfigureAwait(false);
+        //public async Task GetEntityByIdReturnsNullIfEntityDoesntExist()
+        //{
+        //    var response = await _classUnderTest.GetEntityById(123).ConfigureAwait(false);
 
-            response.Should().BeNull();
-            _logger.VerifyExact(LogLevel.Debug, $"Calling IDynamoDBContext.LoadAsync for id parameter 123", Times.Once());
+        //    response.Should().BeNull();
+        //    _logger.VerifyExact(LogLevel.Debug, $"Calling IDynamoDBContext.LoadAsync for id parameter 123", Times.Once());
 
-        }
+        //}
 
-        [Test]
-        [Ignore("Enable if using DynamoDb")]
-        public async Task VerifiesGatewayMethodsAddtoDB()
-        {
-            var entity = _fixture.Build<RulesEngineDbEntity>()
-                                   .With(x => x.CreatedAt, DateTime.UtcNow).Create();
-            InsertDatatoDynamoDB(entity);
+        //[Test]
+        //[Ignore("Enable if using DynamoDb")]
+        //public async Task VerifiesGatewayMethodsAddtoDB()
+        //{
+        //    var entity = _fixture.Build<RulesEngineDbEntity>()
+        //                           .With(x => x.CreatedAt, DateTime.UtcNow).Create();
+        //    InsertDatatoDynamoDB(entity);
 
-            var result = await _classUnderTest.GetEntityById(entity.Id).ConfigureAwait(false);
-            result.Should().BeEquivalentTo(entity);
-            _logger.VerifyExact(LogLevel.Debug, $"Calling IDynamoDBContext.LoadAsync for id parameter {entity.Id}", Times.Once());
-        }
+        //    var result = await _classUnderTest.GetEntityById(entity.Id).ConfigureAwait(false);
+        //    result.Should().BeEquivalentTo(entity);
+        //    _logger.VerifyExact(LogLevel.Debug, $"Calling IDynamoDBContext.LoadAsync for id parameter {entity.Id}", Times.Once());
+        //}
 
-        private void InsertDatatoDynamoDB(RulesEngineDbEntity entity)
-        {
-            DynamoDbContext.SaveAsync<RulesEngineDbEntity>(entity).GetAwaiter().GetResult();
-            CleanupActions.Add(async () => await DynamoDbContext.DeleteAsync(entity).ConfigureAwait(false));
-        }
+        //private void InsertDatatoDynamoDB(RulesEngineDbEntity entity)
+        //{
+        //    DynamoDbContext.SaveAsync<RulesEngineDbEntity>(entity).GetAwaiter().GetResult();
+        //    CleanupActions.Add(async () => await DynamoDbContext.DeleteAsync(entity).ConfigureAwait(false));
+        //}
     }
 }

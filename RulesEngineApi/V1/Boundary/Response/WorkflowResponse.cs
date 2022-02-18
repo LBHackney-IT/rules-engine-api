@@ -8,21 +8,24 @@ using RulesEngineApi.V1.Domain;
 
 namespace RulesEngineApi.V1.Boundary.Response
 {
-    public class WorkflowResponse : Workflow
+    public class WorkflowResponse
     {
-        [JsonProperty(Order = 1)]
         public Guid Id { get; set; }
 
-        [JsonProperty(Order = 2)]
-        public new string WorkflowName { get; set; }
+        /// <summary>
+        /// Gets the workflow name.
+        /// </summary>
+        public string WorkflowName { get; set; }
 
-        [JsonProperty(Order = 3)]
-        public new List<RuleData> Rules { get; set; }
+        /// <summary>
+        /// list of rules.
+        /// </summary>
+        public IEnumerable<RuleResponse> Rules { get; set; }
 
-        [JsonProperty(Order = 4)]
-        public new List<ScopedParamData> GlobalParams { get; set; }
-
-        [JsonProperty(Order = 5)]
+        [JsonIgnore]
         public DateTime CreatedAt { get; set; }
+
+        [JsonIgnore]
+        public DateTime? LastUpdatedAt { get; set; }
     }
 }

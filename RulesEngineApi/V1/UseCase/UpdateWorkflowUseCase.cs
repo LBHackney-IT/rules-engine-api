@@ -11,26 +11,22 @@ using RulesEngineApi.V1.Domain;
 
 namespace RulesEngineApi.V1.UseCase
 {
-    public class CreateWorkflowUseCase : ICreateWorkflowUseCase
+    public class UpdateWorkflowUseCase : IUpdateWorkflowUseCase
     {
         private readonly IRulesEngineApiGateway _gateway;
 
-        public CreateWorkflowUseCase(IRulesEngineApiGateway gateway)
+        public UpdateWorkflowUseCase(IRulesEngineApiGateway gateway)
         {
             _gateway = gateway;
         }
 
         public async Task<WorkflowResponse> ExecuteAsync(WorkflowDomain workflow)
         {
-            if (workflow == null)
-                throw new ArgumentNullException($"{nameof(workflow)} ModelStateExtension shouldn't be null");
-
             DateTime currentDateTime = DateTime.UtcNow;
 
-            workflow.Id = Guid.NewGuid();
-            workflow.CreatedAt = currentDateTime;
+            workflow.LastUpdatedAt = currentDateTime;
 
-            await _gateway.AddAsync(workflow).ConfigureAwait(false);
+            await _gateway.UpdateAsync(workflow).ConfigureAwait(false);
             return workflow.ToResponse();
         }
     }

@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
 using Microsoft.Extensions.Configuration;
+using Amazon.DynamoDBv2.Model;
+using RulesEngineApi.V1.UseCase;
 
 namespace RulesEngineApi.V1.Gateways
 {
@@ -25,7 +27,28 @@ namespace RulesEngineApi.V1.Gateways
             _configuration = configuration;
         }
 
-        public async Task AddAsync(WorkflowData workflow)
+        public async Task<WorkflowDomain> GetByWorkflowNameAsync(string workflowName)
+        {
+            var result = await _dynamoDbContext.LoadAsync<RulesEngineDbEntity>(workflowName).ConfigureAwait(false);
+            return result?.ToDomain();
+        }
+
+        public async Task<List<WorkflowDomain>> GetAllAsync()
+        {
+            var scan = new ScanRequest() { TableName = "RulesEngine" };
+            var response = await _amazonDynamoDb.ScanAsync(scan).ConfigureAwait(false);
+            return response.ToWorkflows();
+        }
+
+        public async Task AddAsync(WorkflowDomain workflow)
+        {
+            if (workflow == null)
+                throw new ArgumentNullException($"{nameof(workflow)} shouldn't be null!");
+
+            await _dynamoDbContext.SaveAsync(workflow.ToDatabase()).ConfigureAwait(false);
+        }
+
+        public async Task UpdateAsync(WorkflowDomain workflow)
         {
             if (workflow == null)
                 throw new ArgumentNullException($"{nameof(workflow)} shouldn't be null!");

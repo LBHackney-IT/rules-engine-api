@@ -6,6 +6,9 @@ namespace RulesEngineApi.V1.Gateways
 {
     public interface IRulesEngineApiGateway
     {
-        public Task AddAsync(WorkflowData workflow);
+        public Task<List<WorkflowDomain>> GetAllAsync();
+        public Task<WorkflowDomain> GetByWorkflowNameAsync(string workflowName);
+        public Task AddAsync(WorkflowDomain workflow);
+        public Task UpdateAsync(WorkflowDomain workflow);
     }
 }

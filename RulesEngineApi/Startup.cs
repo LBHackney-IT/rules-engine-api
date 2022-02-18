@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using RulesEngineApi.V1.Controllers;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
 using RulesEngineApi.V1.Gateways;
-using RulesEngineApi.V1.Infrastructure;
 using RulesEngineApi.V1.UseCase;
 using RulesEngineApi.V1.UseCase.Interfaces;
 using RulesEngineApi.Versioning;
@@ -15,7 +13,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,11 +23,11 @@ using System.Diagnostics.CodeAnalysis;
 using AccountsApi.V1.Infrastructure;
 //using Hackney.Core.Logging;
 //using Hackney.Core.Middleware.Logging;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 //using Hackney.Core.HealthCheck;
 //using Hackney.Core.Middleware.CorrelationId;
 //using Hackney.Core.DynamoDb.HealthCheck;
 using Hackney.Core.DynamoDb;
+
 //using Hackney.Core.Middleware.Exception;
 
 namespace RulesEngineApi
@@ -143,6 +140,10 @@ namespace RulesEngineApi
         private static void RegisterUseCases(IServiceCollection services)
         {
             services.AddScoped<ICreateWorkflowUseCase, CreateWorkflowUseCase>();
+            services.AddScoped<IExecuteAllRulesUseCase, ExecuteAllRulesUseCase>();
+            services.AddScoped<IGetAllUseCase, GetAllUseCase>();
+            services.AddScoped<IGetByWorkflowNameUseCase, GetByWorkflowNameUseCase>();
+            services.AddScoped<IUpdateWorkflowUseCase, UpdateWorkflowUseCase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

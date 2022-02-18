@@ -5,16 +5,10 @@ using RulesEngine.Models;
 
 namespace RulesEngineApi.V1.Domain
 {
-    public class WorkflowData : Workflow
+    public class WorkflowDomain : Workflow
     {
         public Guid Id { get; set; }
-
-        public new List<RuleData> Rules { get; set; }
-
-        public new List<ScopedParamData> GlobalParams { get; set; }
-
-        public new string WorkflowName { get; set; }
-
         public DateTime CreatedAt { get; set; }
+        public DateTime? LastUpdatedAt { get; set; }
     }
 }

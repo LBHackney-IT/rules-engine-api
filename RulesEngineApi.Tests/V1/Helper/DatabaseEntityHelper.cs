@@ -6,20 +6,20 @@ namespace RulesEngineApi.Tests.V1.Helper
 {
     public static class DatabaseEntityHelper
     {
-        public static RulesEngineDbEntity CreateDatabaseEntity()
-        {
-            var entity = new Fixture().Create<Entity>();
+        //public static RulesEngineDbEntity CreateDatabaseEntity()
+        //{
+        //    var entity = new Fixture().Create<Entity>();
 
-            return CreateDatabaseEntityFrom(entity);
-        }
+        //    return CreateDatabaseEntityFrom(entity);
+        //}
 
-        public static RulesEngineDbEntity CreateDatabaseEntityFrom(Entity entity)
-        {
-            return new RulesEngineDbEntity
-            {
-                Id = entity.Id,
-                CreatedAt = entity.CreatedAt,
-            };
-        }
+        //public static RulesEngineDbEntity CreateDatabaseEntityFrom(Entity entity)
+        //{
+        //    return new RulesEngineDbEntity
+        //    {
+        //        Id = entity.Id,
+        //        CreatedAt = entity.CreatedAt,
+        //    };
+        //}
     }
 }

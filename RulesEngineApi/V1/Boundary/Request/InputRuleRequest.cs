@@ -7,9 +7,9 @@ using RulesEngineApi.V1.Domain;
 
 namespace RulesEngineApi.V1.Boundary.Request
 {
-    public class WorkflowRequest
+    public class InputRuleRequest
     {
-        public string WorkflowName { get; set; }
-        public List<RuleRequest> Rules { get; set; }
+        public string InputRuleName { get; set; }
+        public Dictionary<string, object> Parameters { get; set; }
     }
 }
