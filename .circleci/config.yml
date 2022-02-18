@@ -75,6 +75,9 @@ commands:
           name: Install serverless CLI
           command: npm i -g serverless
       - run:
+          name: Install step function plugin          
+          command: npm i serverless-step-functions
+      - run:
           name: Build lambda
           command: |
             cd ./RulesEngineApi/
