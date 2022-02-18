@@ -61,9 +61,7 @@ commands:
     description: "Deploys API via Serverless"
     parameters:
       stage:
-        type: string
-      aws-account:
-        type: string
+        type: string      
     steps:
       - *attach_workspace
       - checkout
