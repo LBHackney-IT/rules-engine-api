@@ -30,7 +30,7 @@ namespace RulesEngineApi.V1.JsonConverters
 
             if (reader.TokenType == JsonTokenType.Number)
             {
-                if (reader.TryGetInt64(out long l))
+                if (reader.TryGetDecimal(out decimal l))
                 {
                     return l;
                 }
@@ -92,7 +92,7 @@ namespace RulesEngineApi.V1.JsonConverters
                 case JsonValueKind.Number:
                     //TODO: more num type
                     result = 0;
-                    if (jsonElement.TryGetInt64(out long l))
+                    if (jsonElement.TryGetDecimal(out decimal l))
                     {
                         result = l;
                     }
